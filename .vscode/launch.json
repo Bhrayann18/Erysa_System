@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "ErysasystemApplication",
+            "request": "launch",
+            "mainClass": "com.erysa.system.erysasystem.ErysasystemApplication",
+            "projectName": "com.app.crud"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ErysasystemApplication<com.registro.Usuario>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.erysa.system.erysasystem.ErysasystemApplication",
+            "projectName": "com.registro.Usuario",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
