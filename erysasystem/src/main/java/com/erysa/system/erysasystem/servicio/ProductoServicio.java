@@ -15,7 +15,7 @@ public interface ProductoServicio {
 
 	public void save(Producto producto);
 
-	public Producto findOne(Long id);
+	public Producto findOne(Integer id);
 
-	public void delete(Long id);
+	public void delete(Integer id);
 }

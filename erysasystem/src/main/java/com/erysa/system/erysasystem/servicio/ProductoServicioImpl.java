@@ -37,13 +37,13 @@ public class ProductoServicioImpl implements ProductoServicio {
 
 	@Override
 	@Transactional
-	public void delete(Long id) {
+	public void delete(Integer id) {
 		productoRepositorio.deleteById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Producto findOne(Long id) {
+	public Producto findOne(Integer id) {
 		return productoRepositorio.findById(id).orElse(null);
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,65 +18,57 @@ import javax.persistence.Table;
 @Table(name = "productos")
 public class Producto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @Column(name = "Nombre", nullable = false, length = 50)
-    private String Nombre;
+	@Column(name = "Nombre", nullable = false, length = 50)
+	private String Nombre;
 
-    @Column(name = "Imagen", nullable = false, length = 50)
-    private String imagen;
+	@Column(name = "Imagen", nullable = false, length = 50)
+	private String imagen;
 
-    @Column(name = "Precio", nullable = false, length = 50)
-    private String Precio;
+	@Column(name = "Precio", nullable = false, length = 50)
+	private String Precio;
 
-    @Column(name = "Stock", nullable = false, length = 50)
-    private String Stock;
+	@Column(name = "Stock", nullable = false, length = 50)
+	private String Stock;
 
-    @Column(name = "Descripcion", nullable = false, length = 50)
-    private String Descripcion;
+	@Column(name = "Descripcion", nullable = false, length = 50)
+	private String Descripcion;
 
-    @ManyToOne
-    @JoinColumn(name = "id_Categoria_FK")
-    private Categoria categoria;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "categoria_id")
+	private Categoria categoria;
 
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Compra> compra;
+	@OneToMany(mappedBy = "producto")
+	private List<Compra> compra;
 
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Entrada> entrada;
+	@OneToMany(mappedBy = "producto")
+	private List<Entrada> entrada;
 
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Carrito> carrito;
+	@OneToMany(mappedBy = "producto")
+	private List<Carrito> carrito;
 
-    public Producto() {
-    }
+	public Producto() {
+	}
 
-	public Producto(Long id, String nombre, String imagen, String precio, String stock, String descripcion) {
-		super();
+	public Producto(Integer id, String nombre, String imagen, String precio, String stock, String descripcion,
+			Categoria categoria) {
 		this.id = id;
 		Nombre = nombre;
 		this.imagen = imagen;
 		Precio = precio;
 		Stock = stock;
 		Descripcion = descripcion;
+		this.categoria = categoria;
 	}
 
-	public Producto(String nombre, String imagen, String precio, String stock, String descripcion) {
-		super();
-		Nombre = nombre;
-		this.imagen = imagen;
-		Precio = precio;
-		Stock = stock;
-		Descripcion = descripcion;
-	}
-
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -130,8 +123,7 @@ public class Producto {
 	@Override
 	public String toString() {
 		return "Producto [id=" + id + ", Nombre=" + Nombre + ", imagen=" + imagen + ", Precio=" + Precio + ", Stock="
-				+ Stock + ", Descripcion=" + Descripcion + "]";
+				+ Stock + ", Descripcion=" + Descripcion + ", categoria=" + categoria + "]";
 	}
 
-	
 }

@@ -57,10 +57,13 @@ public class ProductoExporterExcel {
 		celda.setCellValue("Stock");
 		celda.setCellStyle(estilo);
 
-		celda = fila.createCell(4);
+		celda = fila.createCell(5);
 		celda.setCellValue("Imagen");
 		celda.setCellStyle(estilo);
 
+		celda = fila.createCell(6);
+		celda.setCellValue("Categoria");
+		celda.setCellStyle(estilo);
 	}
 
 	private void escribirDatosDeLaTabla() {
@@ -104,6 +107,11 @@ public class ProductoExporterExcel {
 			hoja.autoSizeColumn(5);
 			celda.setCellStyle(estilo);
 
+			celda = fila.createCell(6);
+			celda.setCellValue(producto.getCategoria().toString());
+			hoja.autoSizeColumn(6);
+			celda.setCellStyle(estilo);
+
 		}
 	}
 
@@ -113,7 +121,7 @@ public class ProductoExporterExcel {
 
 		ServletOutputStream outPutStream = response.getOutputStream();
 		libro.write(outPutStream);
-		
+
 		libro.close();
 		outPutStream.close();
 	}

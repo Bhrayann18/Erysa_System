@@ -24,4 +24,3 @@ public class ErysasystemApplication implements CommandLineRunner {
 	}
 
 }
-

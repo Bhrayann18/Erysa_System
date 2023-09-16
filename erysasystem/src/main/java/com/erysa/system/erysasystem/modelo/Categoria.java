@@ -15,52 +15,42 @@ import javax.persistence.Table;
 @Table(name = "Categoria")
 public class Categoria {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_Categoria;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @Column(name = "Nombre_Categoria")
-    private String Nombre_Categoria;
+	@Column(length = 45, nullable = false, unique = true)
+	private String nombre;
 
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Producto> productos;
+	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Producto> productos;
 
-    public Long getId_Categoria() {
-        return id_Categoria;
-    }
+	public Categoria() {
+	}
 
-    public void setId_Categoria(Long id_Categoria) {
-        this.id_Categoria = id_Categoria;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getNombre_Categoria() {
-        return Nombre_Categoria;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setNombre_Categoria(String nombre_Categoria) {
-        Nombre_Categoria = nombre_Categoria;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public List<Producto> getProductos() {
-        return productos;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
-    }
+	public Categoria(Integer id, String nombre) {
+		this.id = id;
+		this.nombre = nombre;
+	}
 
-    public Categoria(Long id_Categoria, String nombre_Categoria, List<Producto> productos) {
-        this.id_Categoria = id_Categoria;
-        Nombre_Categoria = nombre_Categoria;
-        this.productos = productos;
-    }
-
-    public Categoria(String nombre_Categoria, List<Producto> productos) {
-        Nombre_Categoria = nombre_Categoria;
-        this.productos = productos;
-    }
-
-    public Categoria() {
-    }
+	public Categoria(Integer id) {
+		this.id = id;
+	}
 
 }

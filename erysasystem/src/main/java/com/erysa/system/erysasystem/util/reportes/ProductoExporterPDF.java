@@ -53,6 +53,9 @@ public class ProductoExporterPDF {
 
 		celda.setPhrase(new Phrase("Imagen", fuente));
 		tabla.addCell(celda);
+		
+		celda.setPhrase(new Phrase("Categoria", fuente));
+		tabla.addCell(celda);
 	}
 
 	private void escribirDatosDeLaTabla(PdfPTable tabla) {
@@ -62,6 +65,7 @@ public class ProductoExporterPDF {
 			tabla.addCell(String.valueOf(producto.getPrecio()));
 			tabla.addCell(String.valueOf(producto.getStock()));
 			tabla.addCell(String.valueOf(producto.getImagen()));
+			tabla.addCell(String.valueOf(producto.getCategoria()));
 		}
 	}
 

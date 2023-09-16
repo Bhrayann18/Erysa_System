@@ -1,15 +1,16 @@
 package com.erysa.system.erysasystem.controlador;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +23,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import com.erysa.system.erysasystem.modelo.Categoria;
 import com.erysa.system.erysasystem.modelo.Producto;
+import com.erysa.system.erysasystem.repositorio.CategoriaRepositorio;
+import com.erysa.system.erysasystem.repositorio.ProductoRepositorio;
 import com.erysa.system.erysasystem.servicio.ProductoServicio;
 import com.erysa.system.erysasystem.util.PageRender;
 import com.erysa.system.erysasystem.util.reportes.ProductoExporterExcel;
@@ -37,8 +41,14 @@ public class ProductoControlador {
 	@Autowired
 	private ProductoServicio productoServicio;
 
+	@Autowired
+	private ProductoRepositorio productoRepositorio;
+
+	@Autowired
+	private CategoriaRepositorio categoriaRepositorio;
+
 	@GetMapping("/ver/{id}")
-	public String verDetallesDelProducto(@PathVariable(value = "id") Long id, Map<String, Object> modelo,
+	public String verDetallesDelProducto(@PathVariable(value = "id") Integer id, Map<String, Object> modelo,
 			RedirectAttributes flash) {
 		Producto producto = productoServicio.findOne(id);
 		if (producto == null) {
@@ -65,9 +75,11 @@ public class ProductoControlador {
 
 	@GetMapping("/form")
 	public String mostrarFormularioDeRegistrarProducto(Map<String, Object> modelo) {
+		List<Categoria> listarCategorias = categoriaRepositorio.findAll();
 		Producto producto = new Producto();
 		modelo.put("producto", producto);
 		modelo.put("titulo", "Registro de productos");
+		modelo.put("listarCategorias", listarCategorias);
 		return "form";
 	}
 
@@ -86,12 +98,12 @@ public class ProductoControlador {
 		status.setComplete();
 		flash.addFlashAttribute("success", mensaje);
 		return "redirect:/listar";
-
 	}
 
 	@GetMapping("/form/{id}")
-	public String editarProducto(@PathVariable(value = "id") Long id, Map<String, Object> modelo,
+	public String editarProducto(@PathVariable(value = "id") Integer id, Map<String, Object> modelo,
 			RedirectAttributes flash) {
+		List<Categoria> listarCategorias = categoriaRepositorio.findAll();
 		Producto producto = null;
 		if (id > 0) {
 			producto = productoServicio.findOne(id);
@@ -103,14 +115,14 @@ public class ProductoControlador {
 			flash.addFlashAttribute("error", "El ID del producto no puede ser cero");
 			return "redirect:/listar";
 		}
-
+		modelo.put("listarCategorias", listarCategorias);
 		modelo.put("producto", producto);
 		modelo.put("titulo", "Edición de producto");
 		return "form";
 	}
 
 	@GetMapping("/eliminar/{id}")
-	public String eliminarProducto(@PathVariable(value = "id") Long id, RedirectAttributes flash) {
+	public String eliminarProducto(@PathVariable(value = "id") Integer id, RedirectAttributes flash) {
 		if (id > 0) {
 			productoServicio.delete(id);
 			flash.addFlashAttribute("success", "Empleado eliminado con exito");
