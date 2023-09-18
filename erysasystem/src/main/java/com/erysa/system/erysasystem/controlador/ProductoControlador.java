@@ -138,7 +138,7 @@ public class ProductoControlador {
 		String fechaActual = dateFormatter.format(new Date());
 
 		String cabecera = "Content-Disposition";
-		String valor = "attachment; filename=Empleados_" + fechaActual + ".pdf";
+		String valor = "attachment; filename=Productos_" + fechaActual + ".pdf";
 
 		response.setHeader(cabecera, valor);
 
@@ -156,7 +156,7 @@ public class ProductoControlador {
 		String fechaActual = dateFormatter.format(new Date());
 
 		String cabecera = "Content-Disposition";
-		String valor = "attachment; filename=Empleados_" + fechaActual + ".xlsx";
+		String valor = "attachment; filename=Productos_" + fechaActual + ".xlsx";
 
 		response.setHeader(cabecera, valor);
 

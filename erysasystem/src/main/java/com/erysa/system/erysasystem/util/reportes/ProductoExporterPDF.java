@@ -60,12 +60,13 @@ public class ProductoExporterPDF {
 
 	private void escribirDatosDeLaTabla(PdfPTable tabla) {
 		for (Producto producto : listaProductos) {
+			tabla.addCell(String.valueOf(producto.getId()));
 			tabla.addCell(String.valueOf(producto.getDescripcion()));
 			tabla.addCell(String.valueOf(producto.getNombre()));
 			tabla.addCell(String.valueOf(producto.getPrecio()));
 			tabla.addCell(String.valueOf(producto.getStock()));
 			tabla.addCell(String.valueOf(producto.getImagen()));
-			tabla.addCell(String.valueOf(producto.getCategoria()));
+			tabla.addCell(String.valueOf(producto.getCategoria()).toString());
 		}
 	}
 
@@ -83,10 +84,10 @@ public class ProductoExporterPDF {
 		titulo.setAlignment(Paragraph.ALIGN_CENTER);
 		documento.add(titulo);
 
-		PdfPTable tabla = new PdfPTable(8);
+		PdfPTable tabla = new PdfPTable(7);
 		tabla.setWidthPercentage(100);
 		tabla.setSpacingBefore(15);
-		tabla.setWidths(new float[] { 1f, 2.3f, 2.3f, 6f, 2.9f, 3.5f, 2f, 2.2f });
+		tabla.setWidths(new float[] { 1f, 2.5f, 2.3f, 3.0f, 2.9f, 3.5f, 6f});
 		tabla.setWidthPercentage(110);
 
 		escribirCabeceraDeLaTabla(tabla);
