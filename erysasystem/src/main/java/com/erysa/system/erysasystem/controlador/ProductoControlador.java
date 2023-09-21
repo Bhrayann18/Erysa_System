@@ -4,12 +4,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.rowset.serial.SerialException;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
@@ -34,6 +39,7 @@ import com.erysa.system.erysasystem.util.PageRender;
 import com.erysa.system.erysasystem.util.reportes.ProductoExporterExcel;
 import com.erysa.system.erysasystem.util.reportes.ProductoExporterPDF;
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.Image;	
 
 @Controller
 public class ProductoControlador {
@@ -84,19 +90,37 @@ public class ProductoControlador {
 	}
 
 	@PostMapping("/form")
-	public String guardarProducto(@Valid Producto producto, BindingResult result, Model modelo,
-			RedirectAttributes flash, SessionStatus status) {
+	public String guardarProducto(@RequestParam(value = "file") MultipartFile imagen, @Valid Producto producto,
+			BindingResult result, Model modelo,
+			RedirectAttributes attribute, SessionStatus status) {
+
 		if (result.hasErrors()) {
 			modelo.addAttribute("titulo", "Registro de producto");
+			modelo.addAttribute("producto", producto);
 			return "form";
 		}
 
-		String mensaje = (producto.getId() != null) ? "El producto ha sido editato con exito"
-				: "Producto registrado con exito";
+		if (!imagen.isEmpty()) {
+			Path directorioImagenes = Paths.get("src//main//resources//static//img");
+			String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+
+			try {
+				byte[] bytesImg = imagen.getBytes();
+				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+				Files.write(rutaCompleta, bytesImg);
+
+				producto.setImagen(imagen.getOriginalFilename());
+
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+		}
 
 		productoServicio.save(producto);
 		status.setComplete();
-		flash.addFlashAttribute("success", mensaje);
+		attribute.addFlashAttribute("success", "Producto Guardado");
+
 		return "redirect:/listar";
 	}
 

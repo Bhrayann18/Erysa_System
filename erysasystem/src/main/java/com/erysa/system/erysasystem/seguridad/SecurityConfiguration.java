@@ -10,6 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.erysa.system.erysasystem.servicio.UsuarioServicio;
 
@@ -41,7 +44,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/form/**","/eliminar/**","/exportarExcel**/","/listar/**","/registro**", "/js/**", "/css/**", "/img/**")
+				.antMatchers("/form/**", "/eliminar/**", "/exportarExcel**/", "/listar/**", "/registro**", "/js/**",
+						"/css/**", "/img/**")
 				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and()
 				.logout().invalidateHttpSession(true).clearAuthentication(true)
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")

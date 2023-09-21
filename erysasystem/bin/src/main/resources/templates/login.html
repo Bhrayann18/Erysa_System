@@ -1,73 +1,93 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <meta charset="ISO-8859-1" />
-    <meta http-equiv=" X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8">
+<title>Inicio de sesión</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
 
-
-    <!-- Logo -->
-    <link rel="icon" href="../IMG/login.png" />
-    <!-- Logo -->
-
-
-    <!--Title-->
-    <title>Creaciones Erysa - Iniciar Sesión </title>
-    <!--Title-->
-
-    <!--CSS-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-
-    <link th:href="@{/css/LogIn.css}" rel="stylesheet" />
-    <!--CSS-->
-
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
 </head>
-
 <body>
 
-    <!--JavaScript-->
-    <script src="/js/LogIn.js"></script>
-    <!--JavaScript-->
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" th:href="@{/}">Registro y
+					inicio de sesión</a>
+			</div>
+		</div>
+	</nav>
+
+	<br>
+	<br>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<h1>Inicio de sesión</h1>
+				<form th:action="@{/login}" method="post">
+
+					<div th:if=${param.error}>
+						<div class="alert alert-danger">Usuario o contraseña
+							inválidos</div>
+					</div>
+
+					<div th:if=${param.logout}>
+						<div class="alert alert-info">Ha cerrado sesión exitosamente
+						</div>
+					</div>
 
 
+					<div class="form-group">
+						<label  for="username">Correo Electronico : </label> <input  id="email"  name="username" type="email" class="form-control"
+							required autofocus="autofocus" placeholder="Digite su email ID">
+					</div>
 
-    <!--Formulario-->
-    <div class="container">
-        <h2 style="text-align: center;">Iniciar Sesión</h2>
-        <form class="user" th:action="@{/login}" method="post">
-            <input type="email" class="email" for="username" id="username" name="username" required
-                autofocus="autofocus" aria-describedby="emailHelp" placeholder="email">
-            <br />
-            <input type="text" class="pwd" for="password" id="password" name="password" required autofocus="autofocus"
-                placeholder="Contraseña">
-                <button class="signin">
-                    <span>Iniciar Sesión</span>
-                </button>
-        </form>
-        <a href="./Forgot.html" class="link">
-            <strong>¿Olvidó contraseña?</strong>
-        </a>
-        <br />
+					<div class="form-group">
+						<label  for="password">Password : </label> <input
+							id="password" type="password"  name="password" class="form-control" required
+							autofocus="autofocus" placeholder="Digite su password">
+					</div>
 
-        <!--Botones-->
-       
-        <a href="../Formularios/Register.html">
-            <button class="@{/registro}" style="background-color: #D698C7;">
-                <span>Registrar</span>
-            </button></a>
-        <!--Botones-->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-6 col-md-offset-3">
+								<input type="submit" class="form-control btn btn-primary" name="login-submit" id="login-submit"
+									value="Iniciar sesión" />
+							</div>
+						</div>
+					</div>
+				</form>
+				<div class="form-group">
+					<span>Si eres nuevo usuario <a th:href="@{/registro}">regístrate
+							aqui</a></span>
+				</div>
 
-        <h3>your registration is complete ! </h3>
-        <h3>your sign in is complete !</h3>
-        <div class="reg"></div>
-        <div class="sig"></div>
-    </div>
-    <!--Formulario-->
+			</div>
+		</div>
+	</div>
 
 
+	<!-- Latest compiled and minified JavaScript -->
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
 </body>
-
-
-
 </html>

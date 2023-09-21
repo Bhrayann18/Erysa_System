@@ -25,7 +25,6 @@ public class Producto {
 	@Column(name = "Nombre", nullable = false, length = 50)
 	private String Nombre;
 
-	@Column(name = "Imagen", nullable = false, length = 50)
 	private String imagen;
 
 	@Column(name = "Precio", nullable = false, length = 50)

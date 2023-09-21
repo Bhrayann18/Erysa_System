@@ -108,7 +108,7 @@ public class ProductoExporterExcel {
 			celda.setCellStyle(estilo);
 
 			celda = fila.createCell(6);
-			celda.setCellValue(producto.getCategoria().toString());
+			celda.setCellValue(producto.getCategoria().getNombre());
 			hoja.autoSizeColumn(6);
 			celda.setCellStyle(estilo);
 

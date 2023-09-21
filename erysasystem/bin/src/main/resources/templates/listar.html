@@ -14,7 +14,7 @@
 			<div class="card-header" th:text="${titulo}"></div>
 			<div class="card-body">
 				<h4 class="card-title">
-					<a th:href="@{/form}" class="btn btn-primary">Agregar empleado</a>
+					<a th:href="@{/form}" class="btn btn-primary">Agregar Producto</a>
 
 					<a th:href="@{/exportarPDF}" class="btn btn-secondary">Exportar a PDF</a> <a
 						th:href="@{/exportarExcel}" class="btn btn-success">Exportar a Excel</a>
@@ -28,6 +28,7 @@
 							<th>precio</th>
 							<th>stock</th>
 							<th>descripcion</th>
+							<th>categoria</th>
 							<th sec:authorize="hasRole('ADMIN')">Editar</th>
 							<th sec:authorize="hasRole('ADMIN')">Eliminar</th>
 						</tr>
@@ -40,6 +41,7 @@
 							<td th:text="${producto.precio}"></td>
 							<td th:text="${producto.stock}"></td>
 							<td th:text="${producto.descripcion}"></td>
+							<td th:text="${producto.categoria.nombre}"></td>
 							<td><a class="btn btn-info btn-sm" th:href="@{/ver/} + ${producto.id}">Detalles</a></td>
 							<td><a class="btn btn-warning btn-sm" th:href="@{/form/} + ${producto.id}">Editar</a></td>
 							<td><a class="btn btn-danger btn-sm" th:href="@{/eliminar/} + ${producto.id}"

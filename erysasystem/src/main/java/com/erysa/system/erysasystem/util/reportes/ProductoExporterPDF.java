@@ -66,7 +66,7 @@ public class ProductoExporterPDF {
 			tabla.addCell(String.valueOf(producto.getPrecio()));
 			tabla.addCell(String.valueOf(producto.getStock()));
 			tabla.addCell(String.valueOf(producto.getImagen()));
-			tabla.addCell(String.valueOf(producto.getCategoria()).toString());
+			tabla.addCell(String.valueOf(producto.getCategoria().getNombre()));
 		}
 	}
 
