@@ -13,10 +13,10 @@ import com.erysa.system.erysasystem.repositorio.ProductoRepositorio;
 
 @Service
 public class ProductoServicioImpl implements ProductoServicio {
-
+	/** Aqui se determina la estructura para realizar los metodos de eliminar, actualizar y listar */
 	@Autowired
 	private ProductoRepositorio productoRepositorio;
-
+	/** Aqui se determina la estructura para listar el registro de productos */
 	@Override
 	@Transactional(readOnly = true)
 	public List<Producto> findAll() {

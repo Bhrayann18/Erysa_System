@@ -6,7 +6,7 @@
 </head>
 
 <body>
-
+	<!-- Listar el registro de productos -->
 	<header th:replace="layout/layout :: header"></header>
 
 	<div class="py-4 ml-5 mr-5">
@@ -19,6 +19,7 @@
 					<a th:href="@{/exportarPDF}" class="btn btn-secondary">Exportar a PDF</a> <a
 						th:href="@{/exportarExcel}" class="btn btn-success">Exportar a Excel</a>
 				</h4>
+				<!-- Cabecera-->
 				<table class="table table-striped">
 					<thead>
 						<tr>
@@ -33,6 +34,7 @@
 							<th sec:authorize="hasRole('ADMIN')">Eliminar</th>
 						</tr>
 					</thead>
+					<!-- Atributos a llenar-->
 					<tbody>
 						<tr th:each="producto : ${productos}">
 							<td th:text="${producto.id}"></td>

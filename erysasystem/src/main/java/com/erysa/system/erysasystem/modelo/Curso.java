@@ -36,7 +36,7 @@ public class Curso {
 
     @Column(name = "Cantidad_videos")
     private String Cantidad_videos;
-
+    /** Clave foranea de uno a muchos */
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Carrito> carrito;
 

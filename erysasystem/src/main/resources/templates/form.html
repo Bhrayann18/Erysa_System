@@ -6,7 +6,7 @@
 </head>
 
 <body>
-
+	<!-- Form para registrar y editar los productos-->
 	<header th:replace="layout/layout :: header"></header>
 
 	<br>
@@ -25,7 +25,7 @@
 							<small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
 								th:errors="*{nombre}"></small>
 						</div>
-						<div class="form-group">
+						<div class="form-group row">
 							<label>imagen : </label>
 							<input type="file" name="file" class="form-control" />
 							<small class="form-text text-danger" th:if="${#fields.hasErrors('imagen')}"></small>

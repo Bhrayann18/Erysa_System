@@ -19,10 +19,10 @@ import com.erysa.system.erysasystem.servicio.UsuarioServicio;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+	/** Se importa del paquete de usuario servicio */
 	@Autowired
 	private UsuarioServicio usuarioServicio;
-
+	/** Por seguridad se utiliza este metodo para el password */
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -40,7 +40,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider());
 	}
-
+	/** Aqui mediante el Http se determina la estructura front end a ejecutar mediante el localhost y el 
+	 * puerto determinado y los usuario que pueden acceder a alas diferentes interfaces */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()

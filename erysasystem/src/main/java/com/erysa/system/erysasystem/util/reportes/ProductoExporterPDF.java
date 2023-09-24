@@ -27,6 +27,7 @@ public class ProductoExporterPDF {
 		this.listaProductos = listaProductos;
 	}
 
+	/** Cabecera de la tabla y estilo de la tabla */
 	private void escribirCabeceraDeLaTabla(PdfPTable tabla) {
 		PdfPCell celda = new PdfPCell();
 
@@ -53,11 +54,12 @@ public class ProductoExporterPDF {
 
 		celda.setPhrase(new Phrase("Imagen", fuente));
 		tabla.addCell(celda);
-		
+
 		celda.setPhrase(new Phrase("Categoria", fuente));
 		tabla.addCell(celda);
 	}
 
+	/** Atributos a listar */
 	private void escribirDatosDeLaTabla(PdfPTable tabla) {
 		for (Producto producto : listaProductos) {
 			tabla.addCell(String.valueOf(producto.getId()));
@@ -70,6 +72,10 @@ public class ProductoExporterPDF {
 		}
 	}
 
+	/**
+	 * Estructura de la tabla, donde se configura las medidas de los campos y las
+	 * fuentes
+	 */
 	public void exportar(HttpServletResponse response) throws DocumentException, IOException {
 		Document documento = new Document(PageSize.A4);
 		PdfWriter.getInstance(documento, response.getOutputStream());
@@ -87,9 +93,10 @@ public class ProductoExporterPDF {
 		PdfPTable tabla = new PdfPTable(7);
 		tabla.setWidthPercentage(100);
 		tabla.setSpacingBefore(15);
-		tabla.setWidths(new float[] { 1f, 2.5f, 2.3f, 3.0f, 2.9f, 3.5f, 6f});
+		tabla.setWidths(new float[] { 1f, 2.5f, 2.3f, 3.0f, 2.9f, 3.5f, 6f });
 		tabla.setWidthPercentage(110);
 
+		/** Accion donde se exporta el contenido */
 		escribirCabeceraDeLaTabla(tabla);
 		escribirDatosDeLaTabla(tabla);
 

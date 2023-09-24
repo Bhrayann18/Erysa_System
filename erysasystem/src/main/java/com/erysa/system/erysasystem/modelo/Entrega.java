@@ -29,15 +29,15 @@ public class Entrega {
 
     @Column(name = "Barrio")
     private String Barrio;
-
+    /** Clave foranea de muchos a uno */
     @ManyToOne()
     @JoinColumn(name = "id_Venta_FK")
     private Venta venta;
-
+    /** Clave foranea de muchos a uno */
     @ManyToOne()
     @JoinColumn(name = "id_Usuario_FK")
     private Usuario usuario;
-
+    /** Clave foranea de uno a muchos */
     @OneToMany(mappedBy = "entrega", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Carrito> carrito;
 

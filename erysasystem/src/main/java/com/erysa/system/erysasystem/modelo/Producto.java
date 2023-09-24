@@ -35,17 +35,17 @@ public class Producto {
 
 	@Column(name = "Descripcion", nullable = false, length = 50)
 	private String Descripcion;
-
+	/** Clave foranea de muchos a uno */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
-
+	/** Clave foranea de uno a muchos */
 	@OneToMany(mappedBy = "producto")
 	private List<Compra> compra;
-
+	/** Clave foranea de uno a muchos */
 	@OneToMany(mappedBy = "producto")
 	private List<Entrada> entrada;
-
+	/** Clave foranea de uno a muchos */
 	@OneToMany(mappedBy = "producto")
 	private List<Carrito> carrito;
 

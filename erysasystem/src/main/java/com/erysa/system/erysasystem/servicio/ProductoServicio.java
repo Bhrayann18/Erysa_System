@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.erysa.system.erysasystem.modelo.Producto;
-
+/** Aqui se determina la estructura para realizar los metodos de eliminar, actualizar y listar */
 public interface ProductoServicio {
 
 	public List<Producto> findAll();

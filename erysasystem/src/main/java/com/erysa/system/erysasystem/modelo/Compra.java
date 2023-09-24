@@ -25,7 +25,7 @@ public class Compra {
 
     @Column(name = "Cantidad_Videos")
     private String Cantidad_Videos;
-
+    /** Clave foranea de muchos a uno */
     @ManyToOne
     @JoinColumn(name = "id_Producto_FK")
     private Producto producto;

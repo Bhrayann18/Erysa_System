@@ -19,7 +19,7 @@ public class ProductoExporterExcel {
 
 	private XSSFWorkbook libro;
 	private XSSFSheet hoja;
-
+	/** importa productos modelo*/
 	private List<Producto> listaProductos;
 
 	public ProductoExporterExcel(List<Producto> listaProductos) {
@@ -27,7 +27,7 @@ public class ProductoExporterExcel {
 		libro = new XSSFWorkbook();
 		hoja = libro.createSheet("Productos");
 	}
-
+	/** cabecera de la tabla */
 	private void escribirCabeceraDeTabla() {
 		Row fila = hoja.createRow(0);
 
@@ -65,7 +65,7 @@ public class ProductoExporterExcel {
 		celda.setCellValue("Categoria");
 		celda.setCellStyle(estilo);
 	}
-
+	/** Estructura de las celdas,aqui se llaman los atributos de productos a exportar*/
 	private void escribirDatosDeLaTabla() {
 		int nueroFilas = 1;
 
@@ -114,7 +114,7 @@ public class ProductoExporterExcel {
 
 		}
 	}
-
+	/** Accion donde se exporta el contenido*/
 	public void exportar(HttpServletResponse response) throws IOException {
 		escribirCabeceraDeTabla();
 		escribirDatosDeLaTabla();

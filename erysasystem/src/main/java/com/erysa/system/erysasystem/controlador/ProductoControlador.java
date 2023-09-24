@@ -39,20 +39,26 @@ import com.erysa.system.erysasystem.util.PageRender;
 import com.erysa.system.erysasystem.util.reportes.ProductoExporterExcel;
 import com.erysa.system.erysasystem.util.reportes.ProductoExporterPDF;
 import com.lowagie.text.DocumentException;
-import com.lowagie.text.Image;	
 
 @Controller
 public class ProductoControlador {
-
+	/**
+	 * Se importa de servicio para determinar el metodo segun corresponda
+	 */
 	@Autowired
 	private ProductoServicio productoServicio;
-
+	/**
+	 * Se importa de respositorio para determinar la id
+	 */
 	@Autowired
 	private ProductoRepositorio productoRepositorio;
 
 	@Autowired
 	private CategoriaRepositorio categoriaRepositorio;
 
+	/**
+	 * Aqui es para ver los detalles del producto una vez se listen mediante su id
+	 */
 	@GetMapping("/ver/{id}")
 	public String verDetallesDelProducto(@PathVariable(value = "id") Integer id, Map<String, Object> modelo,
 			RedirectAttributes flash) {
@@ -66,6 +72,9 @@ public class ProductoControlador {
 		return "ver";
 	}
 
+	/**
+	 * Se listan los productos y sus respectivos metodos
+	 */
 	@GetMapping({ "/", "/listar", "" })
 	public String listarProductos(@RequestParam(name = "page", defaultValue = "0") int page, Model modelo) {
 		Pageable pageRequest = PageRequest.of(page, 4);
@@ -79,6 +88,10 @@ public class ProductoControlador {
 		return "listar";
 	}
 
+	/**
+	 * Se muestra el formulario para registrar los productos y se llama la categoria
+	 * para el registro
+	 */
 	@GetMapping("/form")
 	public String mostrarFormularioDeRegistrarProducto(Map<String, Object> modelo) {
 		List<Categoria> listarCategorias = categoriaRepositorio.findAll();
@@ -89,10 +102,14 @@ public class ProductoControlador {
 		return "form";
 	}
 
+	/**
+	 * Aqui dentro del form una vez se retorne se guardan los datos y se realiza una
+	 * condicional para la imagen
+	 * la cual tiene una ruta que se crea en el local y se sube en la db
+	 */
 	@PostMapping("/form")
 	public String guardarProducto(@RequestParam(value = "file") MultipartFile imagen, @Valid Producto producto,
-			BindingResult result, Model modelo,
-			RedirectAttributes attribute, SessionStatus status) {
+			BindingResult result, Model modelo, RedirectAttributes attribute, SessionStatus status) {
 
 		if (result.hasErrors()) {
 			modelo.addAttribute("titulo", "Registro de producto");
@@ -124,6 +141,11 @@ public class ProductoControlador {
 		return "redirect:/listar";
 	}
 
+	/**
+	 * Aqui esa para editar el producto donde se retorna un form para cambiar cierto
+	 * dato
+	 * incluyendo la categoria
+	 */
 	@GetMapping("/form/{id}")
 	public String editarProducto(@PathVariable(value = "id") Integer id, Map<String, Object> modelo,
 			RedirectAttributes flash) {
@@ -145,15 +167,26 @@ public class ProductoControlador {
 		return "form";
 	}
 
+	/**
+	 * Se elimina un registro
+	 */
 	@GetMapping("/eliminar/{id}")
 	public String eliminarProducto(@PathVariable(value = "id") Integer id, RedirectAttributes flash) {
 		if (id > 0) {
 			productoServicio.delete(id);
-			flash.addFlashAttribute("success", "Empleado eliminado con exito");
+			flash.addFlashAttribute("success", "Producto eliminado con exito");
 		}
 		return "redirect:/listar";
 	}
 
+	/**
+	 * Se exporta en formato pdf done se selecciona el modelo a exportar y se
+	 * determina el nombre y fecha
+	 * para el archivo
+	 */
+	/**
+	 * Se llama del paquete util
+	 */
 	@GetMapping("/exportarPDF")
 	public void exportarListadoDeProductosEnPDF(HttpServletResponse response) throws DocumentException, IOException {
 		response.setContentType("application/pdf");
@@ -172,6 +205,14 @@ public class ProductoControlador {
 		exporter.exportar(response);
 	}
 
+	/**
+	 * Se exporta en formato excel done se selecciona el modelo a exportar y se
+	 * determina el nombre y fecha
+	 * para el archivo
+	 */
+	/**
+	 * Se llama del paquete util
+	 */
 	@GetMapping("/exportarExcel")
 	public void exportarListadoDeProductosEnExcel(HttpServletResponse response) throws DocumentException, IOException {
 		response.setContentType("application/octet-stream");

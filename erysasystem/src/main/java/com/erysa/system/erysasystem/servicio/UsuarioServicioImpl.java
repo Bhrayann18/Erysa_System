@@ -27,7 +27,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-
+    /** Aqui se llama el paquete de repositorio */
     public UsuarioServicioImpl(UsuarioRepositorio usuarioRepositorio) {
         super();
         this.usuarioRepositorio = usuarioRepositorio;
@@ -40,7 +40,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 				passwordEncoder.encode(registroDTO.getPassword()),Arrays.asList(new Rol("ROLE_USER")));
 		return usuarioRepositorio.save(usuario);
 	}
-
+    /** Aqui se determina el mensaje que se genera una vez se ingrese los datos incorrectos */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.findByEmail(username);

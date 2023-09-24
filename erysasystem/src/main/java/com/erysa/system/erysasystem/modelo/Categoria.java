@@ -22,6 +22,7 @@ public class Categoria {
 	@Column(length = 45, nullable = false, unique = true)
 	private String nombre;
 
+	/** Clave foranea de uno a muchos */
 	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Producto> productos;
 

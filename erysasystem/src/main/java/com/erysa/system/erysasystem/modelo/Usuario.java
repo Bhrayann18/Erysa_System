@@ -39,14 +39,14 @@ public class Usuario {
 
     private String email;
     private String password;
-
+    /** Clave foranea de muchos a muchos */
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id_Usuario"), inverseJoinColumns = @JoinColumn(name = "rol_id", referencedColumnName = "id_Rol"))
     private Collection<Rol> roles;
-
+    /** Clave foranea de uno a muchos */
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Carrito> carrito;
-
+    /** Clave foranea de uno a muchos */
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Entrega> entrega;
 
