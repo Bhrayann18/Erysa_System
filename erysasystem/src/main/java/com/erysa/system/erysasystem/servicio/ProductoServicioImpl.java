@@ -1,6 +1,7 @@
 package com.erysa.system.erysasystem.servicio;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,14 +14,23 @@ import com.erysa.system.erysasystem.repositorio.ProductoRepositorio;
 
 @Service
 public class ProductoServicioImpl implements ProductoServicio {
-	/** Aqui se determina la estructura para realizar los metodos de eliminar, actualizar y listar */
+	/**
+	 * Aqui se determina la estructura para realizar los metodos de eliminar,
+	 * actualizar y listar
+	 */
 	@Autowired
 	private ProductoRepositorio productoRepositorio;
+
 	/** Aqui se determina la estructura para listar el registro de productos */
 	@Override
 	@Transactional(readOnly = true)
 	public List<Producto> findAll() {
 		return (List<Producto>) productoRepositorio.findAll();
+	}
+
+	@Override
+	public Optional<Producto> get(Integer id) {
+		return productoRepositorio.findById(id);
 	}
 
 	@Override

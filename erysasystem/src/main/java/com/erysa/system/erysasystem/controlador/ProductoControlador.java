@@ -104,8 +104,8 @@ public class ProductoControlador {
 
 	/**
 	 * Aqui dentro del form una vez se retorne se guardan los datos y se realiza una
-	 * condicional para la imagen
-	 * la cual tiene una ruta que se crea en el local y se sube en la db
+	 * condicional para la imagen la cual tiene una ruta que se crea en el local y
+	 * se sube en la db
 	 */
 	@PostMapping("/form")
 	public String guardarProducto(@RequestParam(value = "file") MultipartFile imagen, @Valid Producto producto,
@@ -143,8 +143,7 @@ public class ProductoControlador {
 
 	/**
 	 * Aqui esa para editar el producto donde se retorna un form para cambiar cierto
-	 * dato
-	 * incluyendo la categoria
+	 * dato incluyendo la categoria
 	 */
 	@GetMapping("/form/{id}")
 	public String editarProducto(@PathVariable(value = "id") Integer id, Map<String, Object> modelo,
@@ -181,8 +180,7 @@ public class ProductoControlador {
 
 	/**
 	 * Se exporta en formato pdf done se selecciona el modelo a exportar y se
-	 * determina el nombre y fecha
-	 * para el archivo
+	 * determina el nombre y fecha para el archivo
 	 */
 	/**
 	 * Se llama del paquete util
@@ -207,8 +205,7 @@ public class ProductoControlador {
 
 	/**
 	 * Se exporta en formato excel done se selecciona el modelo a exportar y se
-	 * determina el nombre y fecha
-	 * para el archivo
+	 * determina el nombre y fecha para el archivo
 	 */
 	/**
 	 * Se llama del paquete util
