@@ -29,7 +29,7 @@
 					<div class="col-lg-6">
 						<a href="#"><img Class="img-thumbnail rounded float-left"
 								th:src="@{'/img/' + ${producto.imagen}}" th:alt="${producto.imagen}"
-								style="max-width: 25%;">
+								style="max-width: 100%;">
 						</a>
 					</div>
 					<div class="col-lg-6">
@@ -43,6 +43,9 @@
 								</li>
 								<li class="list-group-item">
 									<p th:text=" 'Descripción: '+ ${producto.descripcion} "></p>
+								</li>
+								<li class="list-group-item">
+									<p th:text=" 'Stock: '+ ${producto.stock} "></p>
 								</li>
 								<li class="list-group-item">
 									<h6>
