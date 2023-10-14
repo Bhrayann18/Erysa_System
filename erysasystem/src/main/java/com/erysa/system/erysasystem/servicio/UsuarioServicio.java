@@ -1,16 +1,23 @@
 package com.erysa.system.erysasystem.servicio;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.erysa.system.erysasystem.controlador.dto.UsuarioRegistroDTO;
+import com.erysa.system.erysasystem.modelo.Orden;
+import com.erysa.system.erysasystem.modelo.Producto;
 import com.erysa.system.erysasystem.modelo.Usuario;
 
-public interface UsuarioServicio extends UserDetailsService {
-	/** Aqui se determina el metodo de guardar y listar los usuarios */
-	public Usuario guardar(UsuarioRegistroDTO registroDTO);
+public interface UsuarioServicio {
 
-	public List<Usuario> listarUsuarios();
+	List<Usuario> findAll();
+
+	Optional<Usuario> findById(Integer id);
+
+	Usuario save(Usuario usuario);
+
+	Optional<Usuario> findByEmail(String email);
 
 }

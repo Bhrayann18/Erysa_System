@@ -54,7 +54,7 @@ public class ProductoExporterExcel {
 		celda.setCellStyle(estilo);
 
 		celda = fila.createCell(4);
-		celda.setCellValue("Stock");
+		celda.setCellValue("cantidad");
 		celda.setCellStyle(estilo);
 
 		celda = fila.createCell(5);
@@ -98,7 +98,7 @@ public class ProductoExporterExcel {
 			celda.setCellStyle(estilo);
 
 			celda = fila.createCell(4);
-			celda.setCellValue(producto.getStock());
+			celda.setCellValue(producto.getCantidad());
 			hoja.autoSizeColumn(4);
 			celda.setCellStyle(estilo);
 

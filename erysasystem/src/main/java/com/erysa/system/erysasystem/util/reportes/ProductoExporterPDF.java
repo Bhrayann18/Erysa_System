@@ -49,7 +49,7 @@ public class ProductoExporterPDF {
 		celda.setPhrase(new Phrase("Precio", fuente));
 		tabla.addCell(celda);
 
-		celda.setPhrase(new Phrase("Stock", fuente));
+		celda.setPhrase(new Phrase("cantidad", fuente));
 		tabla.addCell(celda);
 
 		celda.setPhrase(new Phrase("Imagen", fuente));
@@ -66,7 +66,7 @@ public class ProductoExporterPDF {
 			tabla.addCell(String.valueOf(producto.getDescripcion()));
 			tabla.addCell(String.valueOf(producto.getNombre()));
 			tabla.addCell(String.valueOf(producto.getPrecio()));
-			tabla.addCell(String.valueOf(producto.getStock()));
+			tabla.addCell(String.valueOf(producto.getCantidad()));
 			tabla.addCell(String.valueOf(producto.getImagen()));
 			tabla.addCell(String.valueOf(producto.getCategoria().getNombre()));
 		}

@@ -2,8 +2,6 @@ package com.erysa.system.erysasystem.modelo;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,49 +15,39 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "productos")
 public class Producto {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
-	@Column(name = "Nombre", nullable = false, length = 50)
-	private String Nombre;
-
+	private String nombre;
+	private String descripcion;
 	private String imagen;
+	private double precio;
+	private int cantidad;
 
-	@Column(name = "Precio", nullable = false, length = 50)
-	private String Precio;
+	@ManyToOne
+	private Usuario usuario;
 
-	@Column(name = "Stock", nullable = false, length = 50)
-	private String Stock;
-
-	@Column(name = "Descripcion", nullable = false, length = 50)
-	private String Descripcion;
-	/** Clave foranea de muchos a uno */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
-	/** Clave foranea de uno a muchos */
-	@OneToMany(mappedBy = "producto")
-	private List<Compra> compra;
-	/** Clave foranea de uno a muchos */
-	@OneToMany(mappedBy = "producto")
-	private List<Entrada> entrada;
-	/** Clave foranea de uno a muchos */
-	@OneToMany(mappedBy = "producto")
-	private List<Carrito> carrito;
+
+	@OneToMany(mappedBy = "usuario")
+	private List<Orden> orden;
 
 	public Producto() {
+
 	}
 
-	public Producto(Integer id, String nombre, String imagen, String precio, String stock, String descripcion,
-			Categoria categoria) {
+	public Producto(Integer id, String nombre, String descripcion, String imagen, double precio, int cantidad,
+			Usuario usuario, Categoria categoria) {
+		super();
 		this.id = id;
-		Nombre = nombre;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
 		this.imagen = imagen;
-		Precio = precio;
-		Stock = stock;
-		Descripcion = descripcion;
+		this.precio = precio;
+		this.cantidad = cantidad;
+		this.usuario = usuario;
 		this.categoria = categoria;
 	}
 
@@ -72,11 +60,19 @@ public class Producto {
 	}
 
 	public String getNombre() {
-		return Nombre;
+		return nombre;
 	}
 
 	public void setNombre(String nombre) {
-		Nombre = nombre;
+		this.nombre = nombre;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public String getImagen() {
@@ -87,28 +83,28 @@ public class Producto {
 		this.imagen = imagen;
 	}
 
-	public String getPrecio() {
-		return Precio;
+	public double getPrecio() {
+		return precio;
 	}
 
-	public void setPrecio(String precio) {
-		Precio = precio;
+	public void setPrecio(double precio) {
+		this.precio = precio;
 	}
 
-	public String getStock() {
-		return Stock;
+	public int getCantidad() {
+		return cantidad;
 	}
 
-	public void setStock(String stock) {
-		Stock = stock;
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 
-	public String getDescripcion() {
-		return Descripcion;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public Categoria getCategoria() {
@@ -119,10 +115,18 @@ public class Producto {
 		this.categoria = categoria;
 	}
 
+	public List<Orden> getOrden() {
+		return orden;
+	}
+
+	public void setOrden(List<Orden> orden) {
+		this.orden = orden;
+	}
+
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", Nombre=" + Nombre + ", imagen=" + imagen + ", Precio=" + Precio + ", Stock="
-				+ Stock + ", Descripcion=" + Descripcion + ", categoria=" + categoria + "]";
+		return "Producto [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", imagen=" + imagen
+				+ ", precio=" + precio + ", cantidad=" + cantidad + ", categoria=" + categoria + "]";
 	}
 
 }

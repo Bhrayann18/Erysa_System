@@ -1,7 +1,10 @@
 package com.erysa.system.erysasystem.modelo;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,139 +24,116 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "usuarios", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Usuario {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_Usuario;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	private String nombre;
+	private String apellido;
+	private String numero_celular;
+	private String direccion;
+	private String tipo;
+	private String email;
+	private String password;
 
-    @Column(name = "nombre")
-    private String nombre;
+	@OneToMany(mappedBy = "usuario")
+	private List<Producto> productos;
 
-    @Column(name = "apellido")
-    private String apellido;
+	@OneToMany(mappedBy = "usuario")
+	private List<Orden> ordenes;
 
-    @Column(name = "numero_celular")
-    private String numero_celular;
+	public Usuario() {
+	}
 
-    @Column(name = "direccion")
-    private String direccion;
+	public Usuario(Integer id, String nombre, String apellido, String numero_celular, String direccion, String tipo,
+			String email, String password) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.numero_celular = numero_celular;
+		this.direccion = direccion;
+		this.tipo = tipo;
+		this.email = email;
+		this.password = password;
+	}
 
-    private String email;
-    private String password;
-    /** Clave foranea de muchos a muchos */
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id_Usuario"), inverseJoinColumns = @JoinColumn(name = "rol_id", referencedColumnName = "id_Rol"))
-    private Collection<Rol> roles;
-    /** Clave foranea de uno a muchos */
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Carrito> carrito;
-    /** Clave foranea de uno a muchos */
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Entrega> entrega;
+	public Integer getId() {
+		return id;
+	}
 
-    public Long getId_Usuario() {
-        return id_Usuario;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setId_Usuario(Long id_Usuario) {
-        this.id_Usuario = id_Usuario;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public String getApellido() {
+		return apellido;
+	}
 
-    public String getApellido() {
-        return apellido;
-    }
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
+	public String getNumero_celular() {
+		return numero_celular;
+	}
 
-    public String getNumero_celular() {
-        return numero_celular;
-    }
+	public void setNumero_celular(String numero_celular) {
+		this.numero_celular = numero_celular;
+	}
 
-    public void setNumero_celular(String numero_celular) {
-        this.numero_celular = numero_celular;
-    }
+	public String getDireccion() {
+		return direccion;
+	}
 
-    public String getDireccion() {
-        return direccion;
-    }
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
+	public String getTipo() {
+		return tipo;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public Collection<Rol> getRoles() {
-        return roles;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setRoles(Collection<Rol> roles) {
-        this.roles = roles;
-    }
+	public List<Producto> getProductos() {
+		return productos;
+	}
 
-    public List<Carrito> getCarrito() {
-        return carrito;
-    }
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
 
-    public void setCarrito(List<Carrito> carrito) {
-        this.carrito = carrito;
-    }
-
-    public List<Entrega> getEntrega() {
-        return entrega;
-    }
-
-    public void setEntrega(List<Entrega> entrega) {
-        this.entrega = entrega;
-    }
-
-    public Usuario(Long id_Usuario, String nombre, String apellido, String numero_celular, String direccion,
-            String email, String password, Collection<Rol> roles) {
-        this.id_Usuario = id_Usuario;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.numero_celular = numero_celular;
-        this.direccion = direccion;
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
-    }
-
-    public Usuario(String nombre, String apellido, String numero_celular, String direccion, String email,
-            String password, Collection<Rol> roles) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.numero_celular = numero_celular;
-        this.direccion = direccion;
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
-    }
-
-    public Usuario() {
-    }
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", numero_celular="
+				+ numero_celular + ", direccion=" + direccion + ", tipo=" + tipo + ", email=" + email + ", password="
+				+ password + "]";
+	}
 
 }

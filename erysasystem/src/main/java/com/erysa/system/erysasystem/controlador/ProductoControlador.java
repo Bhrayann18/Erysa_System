@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -32,33 +33,32 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.erysa.system.erysasystem.modelo.Categoria;
 import com.erysa.system.erysasystem.modelo.Producto;
+import com.erysa.system.erysasystem.modelo.Usuario;
 import com.erysa.system.erysasystem.repositorio.CategoriaRepositorio;
 import com.erysa.system.erysasystem.repositorio.ProductoRepositorio;
 import com.erysa.system.erysasystem.servicio.ProductoServicio;
+import com.erysa.system.erysasystem.servicio.UsuarioServicio;
 import com.erysa.system.erysasystem.util.PageRender;
 import com.erysa.system.erysasystem.util.reportes.ProductoExporterExcel;
 import com.erysa.system.erysasystem.util.reportes.ProductoExporterPDF;
 import com.lowagie.text.DocumentException;
 
 @Controller
+
 public class ProductoControlador {
-	/**
-	 * Se importa de servicio para determinar el metodo segun corresponda
-	 */
+
 	@Autowired
 	private ProductoServicio productoServicio;
-	/**
-	 * Se importa de respositorio para determinar la id
-	 */
+
 	@Autowired
 	private ProductoRepositorio productoRepositorio;
 
 	@Autowired
+	private UsuarioServicio usuarioServicio;
+
+	@Autowired
 	private CategoriaRepositorio categoriaRepositorio;
 
-	/**
-	 * Aqui es para ver los detalles del producto una vez se listen mediante su id
-	 */
 	@GetMapping("/ver/{id}")
 	public String verDetallesDelProducto(@PathVariable(value = "id") Integer id, Map<String, Object> modelo,
 			RedirectAttributes flash) {
@@ -69,13 +69,13 @@ public class ProductoControlador {
 		}
 		modelo.put("producto", producto);
 		modelo.put("titulo", "Detalles del producto " + producto.getNombre());
-		return "ver";
+		return "productos/ver";
 	}
 
 	/**
 	 * Se listan los productos y sus respectivos metodos
 	 */
-	@GetMapping({ "/", "/listar", "" })
+	@GetMapping({ "/listar", "" })
 	public String listarProductos(@RequestParam(name = "page", defaultValue = "0") int page, Model modelo) {
 		Pageable pageRequest = PageRequest.of(page, 4);
 		Page<Producto> productos = productoServicio.findAll(pageRequest);
@@ -85,7 +85,7 @@ public class ProductoControlador {
 		modelo.addAttribute("productos", productos);
 		modelo.addAttribute("page", pageRender);
 
-		return "listar";
+		return "productos/listar";
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class ProductoControlador {
 		modelo.put("producto", producto);
 		modelo.put("titulo", "Registro de productos");
 		modelo.put("listarCategorias", listarCategorias);
-		return "form";
+		return "productos/form";
 	}
 
 	/**
@@ -114,7 +114,7 @@ public class ProductoControlador {
 		if (result.hasErrors()) {
 			modelo.addAttribute("titulo", "Registro de producto");
 			modelo.addAttribute("producto", producto);
-			return "form";
+			return "productos/form";
 		}
 
 		if (!imagen.isEmpty()) {
@@ -141,10 +141,6 @@ public class ProductoControlador {
 		return "redirect:/listar";
 	}
 
-	/**
-	 * Aqui esa para editar el producto donde se retorna un form para cambiar cierto
-	 * dato incluyendo la categoria
-	 */
 	@GetMapping("/form/{id}")
 	public String editarProducto(@PathVariable(value = "id") Integer id, Map<String, Object> modelo,
 			RedirectAttributes flash) {
@@ -163,7 +159,7 @@ public class ProductoControlador {
 		modelo.put("listarCategorias", listarCategorias);
 		modelo.put("producto", producto);
 		modelo.put("titulo", "Edición de producto");
-		return "form";
+		return "productos/form";
 	}
 
 	/**

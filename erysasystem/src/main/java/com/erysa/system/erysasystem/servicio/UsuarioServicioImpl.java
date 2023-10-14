@@ -1,21 +1,11 @@
 package com.erysa.system.erysasystem.servicio;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.erysa.system.erysasystem.controlador.dto.UsuarioRegistroDTO;
-import com.erysa.system.erysasystem.modelo.Rol;
 import com.erysa.system.erysasystem.modelo.Usuario;
 import com.erysa.system.erysasystem.repositorio.UsuarioRepositorio;
 
@@ -23,41 +13,26 @@ import com.erysa.system.erysasystem.repositorio.UsuarioRepositorio;
 @Service
 public class UsuarioServicioImpl implements UsuarioServicio {
 
-    private UsuarioRepositorio usuarioRepositorio;
+	@Autowired
+	private UsuarioRepositorio usuarioRepository;
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
-    /** Aqui se llama el paquete de repositorio */
-    public UsuarioServicioImpl(UsuarioRepositorio usuarioRepositorio) {
-        super();
-        this.usuarioRepositorio = usuarioRepositorio;
-    }
-
-    @Override
-	public Usuario guardar(UsuarioRegistroDTO registroDTO) {
-		Usuario usuario = new Usuario(registroDTO.getNombre(), 
-				registroDTO.getApellido(),registroDTO.getNumero_celular(),registroDTO.getDireccion(),registroDTO.getEmail(),
-				passwordEncoder.encode(registroDTO.getPassword()),Arrays.asList(new Rol("ROLE_USER")));
-		return usuarioRepositorio.save(usuario);
+	@Override
+	public Optional<Usuario> findById(Integer id) {
+		return usuarioRepository.findById(id);
 	}
-    /** Aqui se determina el mensaje que se genera una vez se ingrese los datos incorrectos */
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepositorio.findByEmail(username);
-        if (usuario == null) {
-            throw new UsernameNotFoundException("Usuario o password inválidos");
-        }
-        return new User(usuario.getEmail(), usuario.getPassword(), mapearAutoridadesRoles(usuario.getRoles()));
-    }
 
-    private Collection<? extends GrantedAuthority> mapearAutoridadesRoles(Collection<Rol> roles) {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getNombre_Rol()))
-                .collect(Collectors.toList());
-    }
+	@Override
+	public Usuario save(Usuario usuario) {
+		return usuarioRepository.save(usuario);
+	}
 
-    @Override
-    public List<Usuario> listarUsuarios() {
-        return usuarioRepositorio.findAll();
-    }
+	@Override
+	public Optional<Usuario> findByEmail(String email) {
+		return usuarioRepository.findByEmail(email);
+	}
 
+	@Override
+	public List<Usuario> findAll() {
+		return usuarioRepository.findAll();
+	}
 }
