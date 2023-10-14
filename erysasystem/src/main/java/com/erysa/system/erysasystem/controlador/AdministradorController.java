@@ -13,24 +13,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.erysa.system.erysasystem.modelo.Orden;
 import com.erysa.system.erysasystem.modelo.Producto;
-import com.erysa.system.erysasystem.servicio.OrdenServicio;
-import com.erysa.system.erysasystem.servicio.ProductoServicio;
-import com.erysa.system.erysasystem.servicio.UsuarioServicio;
+import com.erysa.system.erysasystem.servicio.IOrdenService;
+import com.erysa.system.erysasystem.servicio.ProductoService;
+import com.erysa.system.erysasystem.servicio.IUsuarioService;
 
 @Controller
 @RequestMapping("/administrador")
 public class AdministradorController {
 
 	@Autowired
-	private ProductoServicio productoServicio;
-	
+	private ProductoService productoServicio;
+
 	@Autowired
-	private UsuarioServicio usuarioServicio;
-	
+	private IUsuarioService usuarioServicio;
+
 	@Autowired
-	private OrdenServicio ordensServicio;
-	
-	
+	private IOrdenService ordensServicio;
 
 	private Logger logg = LoggerFactory.getLogger(AdministradorController.class);
 
@@ -58,6 +56,7 @@ public class AdministradorController {
 	@GetMapping("/detalle/{id}")
 	public String detalle(Model model, @PathVariable Integer id) {
 		logg.info("Id de la orden {}", id);
+
 		Orden orden = ordensServicio.findById(id).get();
 
 		model.addAttribute("detalles", orden.getDetalle());

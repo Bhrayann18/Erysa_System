@@ -10,16 +10,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.erysa.system.erysasystem.modelo.Producto;
-import com.erysa.system.erysasystem.repositorio.ProductoRepositorio;
+import com.erysa.system.erysasystem.repositorio.IProductoRepository;
 
 @Service
-public class ProductoServicioImpl implements ProductoServicio {
+public class ProductoServiceImpl implements ProductoService {
 	/**
 	 * Aqui se determina la estructura para realizar los metodos de eliminar,
 	 * actualizar y listar
 	 */
 	@Autowired
-	private ProductoRepositorio productoRepositorio;
+	private IProductoRepository productoRepositorio;
 
 	/** Aqui se determina la estructura para listar el registro de productos */
 	@Override

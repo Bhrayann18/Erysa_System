@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.erysa.system.erysasystem.servicio.UsuarioServicio;
+import com.erysa.system.erysasystem.servicio.IUsuarioService;
 
 @Configuration
 @EnableWebSecurity

@@ -31,9 +31,6 @@ public class Producto {
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
 
-	@OneToMany(mappedBy = "usuario")
-	private List<Orden> orden;
-
 	public Producto() {
 
 	}
@@ -113,14 +110,6 @@ public class Producto {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
-	}
-
-	public List<Orden> getOrden() {
-		return orden;
-	}
-
-	public void setOrden(List<Orden> orden) {
-		this.orden = orden;
 	}
 
 	@Override

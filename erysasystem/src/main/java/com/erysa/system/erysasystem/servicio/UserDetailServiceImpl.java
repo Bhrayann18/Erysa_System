@@ -20,10 +20,10 @@ import com.erysa.system.erysasystem.modelo.Usuario;
 
 
 @Service
-public class UsuarioDetalleServicioImpl implements UserDetailsService {
+public class UserDetailServiceImpl implements UserDetailsService {
 
 	@Autowired
-	private UsuarioServicio usuarioService;
+	private IUsuarioService usuarioService;
 
 	@Autowired
 	private BCryptPasswordEncoder bCrypt;
@@ -31,7 +31,7 @@ public class UsuarioDetalleServicioImpl implements UserDetailsService {
 	@Autowired
 	HttpSession session;
 
-	private Logger log = LoggerFactory.getLogger(UsuarioDetalleServicioImpl.class);
+	private Logger log = LoggerFactory.getLogger(UserDetailServiceImpl.class);
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

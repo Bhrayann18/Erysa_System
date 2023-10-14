@@ -9,6 +9,6 @@ import com.erysa.system.erysasystem.modelo.Orden;
 import com.erysa.system.erysasystem.modelo.Usuario;
 
 @Repository
-public interface OrdenRepositorio extends JpaRepository<Orden, Integer> {
+public interface IOrdenRepository extends JpaRepository<Orden, Integer> {
 	List<Orden> findByUsuario (Usuario usuario);
 }

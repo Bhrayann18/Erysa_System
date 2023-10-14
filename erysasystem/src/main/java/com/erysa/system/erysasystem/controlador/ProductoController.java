@@ -35,9 +35,9 @@ import com.erysa.system.erysasystem.modelo.Categoria;
 import com.erysa.system.erysasystem.modelo.Producto;
 import com.erysa.system.erysasystem.modelo.Usuario;
 import com.erysa.system.erysasystem.repositorio.CategoriaRepositorio;
-import com.erysa.system.erysasystem.repositorio.ProductoRepositorio;
-import com.erysa.system.erysasystem.servicio.ProductoServicio;
-import com.erysa.system.erysasystem.servicio.UsuarioServicio;
+import com.erysa.system.erysasystem.repositorio.IProductoRepository;
+import com.erysa.system.erysasystem.servicio.ProductoService;
+import com.erysa.system.erysasystem.servicio.IUsuarioService;
 import com.erysa.system.erysasystem.util.PageRender;
 import com.erysa.system.erysasystem.util.reportes.ProductoExporterExcel;
 import com.erysa.system.erysasystem.util.reportes.ProductoExporterPDF;
@@ -45,16 +45,16 @@ import com.lowagie.text.DocumentException;
 
 @Controller
 
-public class ProductoControlador {
+public class ProductoController {
 
 	@Autowired
-	private ProductoServicio productoServicio;
+	private ProductoService productoServicio;
 
 	@Autowired
-	private ProductoRepositorio productoRepositorio;
+	private IProductoRepository productoRepositorio;
 
 	@Autowired
-	private UsuarioServicio usuarioServicio;
+	private IUsuarioService usuarioServicio;
 
 	@Autowired
 	private CategoriaRepositorio categoriaRepositorio;

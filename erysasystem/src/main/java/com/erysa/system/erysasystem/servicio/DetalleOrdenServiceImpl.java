@@ -4,15 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erysa.system.erysasystem.modelo.DetalleOrden;
+import com.erysa.system.erysasystem.repositorio.IDetalleOrdenRepository;
 
 @Service
-public class DetalleOrdenServicioImpl implements DetalleOrdenServicio {
-	
+public class DetalleOrdenServiceImpl implements IDetalleOrdenService {
+
 	@Autowired
-	private DetalleOrdenServicioImpl detalleOrdenRepositorio;
+	private IDetalleOrdenRepository detalleOrdenRepository;
 
 	@Override
 	public DetalleOrden save(DetalleOrden detalleOrden) {
-		return detalleOrdenRepositorio.save(detalleOrden);
+		return detalleOrdenRepository.save(detalleOrden);
 	}
 }

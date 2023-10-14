@@ -38,22 +38,22 @@ import com.erysa.system.erysasystem.dto.DtoRegistro;
 import com.erysa.system.erysasystem.modelo.Orden;
 import com.erysa.system.erysasystem.modelo.Rol;
 import com.erysa.system.erysasystem.modelo.Usuario;
-import com.erysa.system.erysasystem.repositorio.UsuarioRepositorio;
-import com.erysa.system.erysasystem.servicio.OrdenServicio;
+import com.erysa.system.erysasystem.repositorio.IUsuarioRepository;
+import com.erysa.system.erysasystem.servicio.IOrdenService;
 import com.erysa.system.erysasystem.servicio.RolServicio;
-import com.erysa.system.erysasystem.servicio.UsuarioServicio;
+import com.erysa.system.erysasystem.servicio.IUsuarioService;
 
 @Controller
 @RequestMapping("/usuario")
-public class UsuarioControlador {
+public class UsuarioController {
 
-	private final Logger logger = LoggerFactory.getLogger(UsuarioControlador.class);
-
-	@Autowired
-	private UsuarioServicio usuarioService;
+	private final Logger logger = LoggerFactory.getLogger(UsuarioController.class);
 
 	@Autowired
-	private OrdenServicio ordenService;
+	private IUsuarioService usuarioService;
+
+	@Autowired
+	private IOrdenService ordenService;
 
 	BCryptPasswordEncoder passEncode = new BCryptPasswordEncoder();
 

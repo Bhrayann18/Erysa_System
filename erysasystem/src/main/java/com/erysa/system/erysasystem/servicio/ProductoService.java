@@ -12,7 +12,7 @@ import com.erysa.system.erysasystem.modelo.Producto;
  * Aqui se determina la estructura para realizar los metodos de eliminar,
  * actualizar y listar
  */
-public interface ProductoServicio {
+public interface ProductoService {
 
 	public List<Producto> findAll();
 

@@ -10,7 +10,7 @@ import com.erysa.system.erysasystem.modelo.Orden;
 import com.erysa.system.erysasystem.modelo.Producto;
 import com.erysa.system.erysasystem.modelo.Usuario;
 
-public interface UsuarioServicio {
+public interface IUsuarioService {
 
 	List<Usuario> findAll();
 

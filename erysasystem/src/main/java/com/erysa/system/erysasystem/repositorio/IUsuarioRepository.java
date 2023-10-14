@@ -11,7 +11,7 @@ import com.erysa.system.erysasystem.modelo.Usuario;
 /** Se toma la id de la entidad y su tipo que en este caso es Integer */
 
 @Repository
-public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
+public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
 
 	Optional<Usuario> findByEmail(String email);
 

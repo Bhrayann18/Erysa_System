@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.erysa.system.erysasystem.modelo.DetalleOrden;
 
 @Repository
-public interface DetalleOrdenRepositorio extends JpaRepository<DetalleOrden, Integer> {
+public interface IDetalleOrdenRepository extends JpaRepository<DetalleOrden, Integer> {
 
 }

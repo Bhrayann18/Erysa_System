@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erysa.system.erysasystem.modelo.Usuario;
-import com.erysa.system.erysasystem.repositorio.UsuarioRepositorio;
+import com.erysa.system.erysasystem.repositorio.IUsuarioRepository;
 
 
 @Service
-public class UsuarioServicioImpl implements UsuarioServicio {
+public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Autowired
-	private UsuarioRepositorio usuarioRepository;
+	private IUsuarioRepository usuarioRepository;
 
 	@Override
 	public Optional<Usuario> findById(Integer id) {

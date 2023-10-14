@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.erysa.system.erysasystem.modelo.Orden;
 import com.erysa.system.erysasystem.modelo.Usuario;
-import com.erysa.system.erysasystem.repositorio.OrdenRepositorio;
+import com.erysa.system.erysasystem.repositorio.IOrdenRepository;
 
 @Service
-public class OrdenServicioImpl implements OrdenServicio {
+public class OrdenServiceImpl implements IOrdenService {
 	@Autowired
-	private OrdenRepositorio ordenRepositorio;
+	private IOrdenRepository ordenRepositorio;
 
 	@Override
 	public Orden save(Orden orden) {

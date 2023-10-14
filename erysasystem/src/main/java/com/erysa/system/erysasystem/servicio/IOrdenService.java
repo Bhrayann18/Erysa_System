@@ -6,7 +6,7 @@ import java.util.Optional;
 import com.erysa.system.erysasystem.modelo.Orden;
 import com.erysa.system.erysasystem.modelo.Usuario;
 
-public interface OrdenServicio {
+public interface IOrdenService {
 
 	List<Orden> findAll();
 
